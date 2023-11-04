@@ -1,15 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { VirtualTourService } from 'src/context/virtual-tour/application/virtualTour.service';
 
-@Controller()
-export class AppController {
-  constructor() {}
+@Controller('virtualTour')
+export class VirtualTourController {
+	constructor(private readonly virtualTourService: VirtualTourService) {}
 
-  @Get()
-  getHello(): string {
-    return 'hello';
-
-    function Toto() {
-      return 'toto';
-    }
-  }
+	@Post()
+	logInformations(@Body() data: string): void {
+		return this.virtualTourService.logInformations(data);
+	}
 }

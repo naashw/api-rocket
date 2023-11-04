@@ -1,0 +1,15 @@
+{
+	"debug": true,
+	"port": 6001,
+	"metrics": {
+		"port": 9601,
+		"enabled": true
+	},
+	"appManager.array.apps": [
+		{
+			"id": "some-id",
+			"key": "some-key",
+			"secret": "some-secret"
+		}
+	]
+}

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { VirtualTourModule } from './context/virtual-tour/virtualTour.module';
+import { ServiceModule } from './service/service.module';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { NotifyModule } from './context/notify/notify.module';
 
 @Module({
-  imports: [],
+  imports: [VirtualTourModule, ServiceModule, NotifyModule],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
