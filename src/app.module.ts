@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { VirtualTourModule } from './context/virtual-tour/virtualTour.module';
-import { ServiceModule } from './service/service.module';
+import { ServiceModule } from './services/service.module';
 import { AppController } from './app.controller';
 import { NotifyModule } from './context/notify/notify.module';
 
