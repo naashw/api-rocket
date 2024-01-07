@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, VirtualTourPosition } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import {
 	VirtualTourDto,
 	VirtualTourRepositoryPort,
