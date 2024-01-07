@@ -7,6 +7,6 @@ export class VirtualTourController {
 
 	@Post()
 	logInformations(@Body() data: string): void {
-		return this.virtualTourService.logInformations(data);
+		this.virtualTourService.logInformations(data);
 	}
 }
