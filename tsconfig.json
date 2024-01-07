@@ -21,7 +21,10 @@
 		"allowJs": true,
 
 		"paths": {
-			"@services/*": ["src/services/*"]
+			"@services/*": ["src/services/*"],
+			"@virtualTour/*": ["src/context/virtualTour/*"],
+			"@notify/*": ["src/context/notify/*"],
+			"@common/*": ["src/common/*"]
 		}
   }
 }
