@@ -7,6 +7,8 @@ export class PusherWebSocketAdapter implements WebSocketAdapter {
 	private wsClient: pusherJs;
 
 	public create(): void {
+		console.log('init pusher server');
+
 		if (!this.wsServer) {
 			this.wsServer = new Pusher({
 				appId: 'app-id',
@@ -17,7 +19,7 @@ export class PusherWebSocketAdapter implements WebSocketAdapter {
 				cluster: 'visiteici',
 			});
 
-			console.log('PusherWebSocketAdapter created');
+			console.log('Pusher server created');
 		}
 
 		if (!this.wsClient) {
@@ -25,7 +27,7 @@ export class PusherWebSocketAdapter implements WebSocketAdapter {
 				cluster: 'visiteici',
 			});
 
-			console.log('PusherWebSocketAdapter created');
+			console.log('Pusher client created');
 		}
 	}
 

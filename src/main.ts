@@ -4,8 +4,8 @@ import { PusherWebSocketAdapter } from './common/adapters/ws-pusher.adapter';
 
 async function Bootstrap() {
 	const app = await NestFactory.create(AppModule);
-	const ws = app.useWebSocketAdapter(new PusherWebSocketAdapter());
-	ws.init();
+	const ws = new PusherWebSocketAdapter();
+	ws.create();
 	await app.listen(3001);
 }
 Bootstrap();
