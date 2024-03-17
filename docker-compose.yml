@@ -3,13 +3,38 @@ version: '3.9'
 volumes:
   postgres-data:
 
+networks:
+  rocket-net:
+
 services:
-  postgres:
+  api-db:
+    container_name: api-db
     image: postgres:latest
-    container_name: rocket-db
     environment:
+      POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - rocket-net
+
+  api:
+    container_name: api
+    image: api-rocket
+    environment:
+      PORT: ${API_PORT}
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      PRISMA_DATABASE_URL: ${PRISMA_DATABASE_URL}
+    ports:
+      - '3001:3001'
+    depends_on:
+      - api-db
+    volumes:
+      - ./src:/workspace/src
+    networks:
+      - rocket-net

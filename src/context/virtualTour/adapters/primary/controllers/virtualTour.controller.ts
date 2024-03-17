@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import {
 	VirtualTourAutomaticDto,
 	VirtualTourDto,
@@ -24,11 +24,11 @@ export class VirtualTourController {
 		}
 	}
 
-	@Get()
+	@Get('fetch/:id')
 	async get(
-		@Body() body: { virtualTourId: string },
+		@Param('id') virtualTourId: string,
 	): Promise<VirtualTourAutomaticDto[]> {
-		return await this.virtualTour.fetch(body.virtualTourId);
+		return await this.virtualTour.fetch(virtualTourId);
 	}
 
 	@Get('id')

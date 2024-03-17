@@ -1,0 +1,30 @@
+[_]
+schema-version = "0.2"
+name = "unnomrandom"
+
+[io.buildpacks]
+builder = "paketobuildpacks/builder:base"
+exclude = [
+    "README.md",
+]
+
+[[io.buildpacks.build.env]]
+name = "BP_NODE_RUN_SCRIPTS"
+value = "build"
+
+# [[io.buildpacks.build.env]]
+# name = "BP_LAUNCHPOINT"
+# value = "./entrypoint.sh"
+
+# [[io.buildpacks.build.env]]
+# name = "BP_LOG_LEVEL"
+# value = "DEBUG"
+
+[[io.buildpacks.build.env]]
+  name = 'BP_LIVE_RELOAD_ENABLED'
+  value = 'true'
+
+[[io.buildpacks.build.env]]
+  name = 'NODE_ENV'
+  value = 'development'
+

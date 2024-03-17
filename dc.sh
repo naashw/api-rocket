@@ -12,28 +12,31 @@ if ! command -v docker-compose &> /dev/null; then
     exit 1
 fi
 
-# Vérifie les arguments du script
-if [ "$#" -eq 0 ]; then
-    echo "Utilisation : $0 [up|down]"
-    exit 1
-fi
+# Définition des options par défaut
+use_prod=false
+
+# Analyse des options de la ligne de commande
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -p|--prod) use_prod=true;;
+        up|down) action=$1;;
+        *) echo "Option non reconnue : $1. Utilisation : $0 [-p|--prod] [up|down]"; exit 1;;
+    esac
+    shift
+done
 
 # Changez le répertoire de travail vers celui contenant docker-compose.yml
 cd .
 
-if [ "$1" == "up" ]; then
-    # Exécutez Docker Compose pour lancer les conteneurs
-    docker-compose up -d
-    echo "Les conteneurs Docker Compose ont été lancés avec succès."
-elif [ "$1" == "down" ]; then
-    # Arrêtez les conteneurs Docker Compose
-    docker-compose down
-    echo "Les conteneurs Docker Compose ont été arrêtés avec succès."
-else
-    echo "Option non reconnue : $1. Utilisation : $0 [up|down]"
-    exit 1
+if [ "$action" == "up" ]; then
+    # Exécutez Docker Compose avec docker-compose.production.yml pour lancer les conteneurs en mode production
+    docker-compose -f docker-compose.yml up --force-recreate
+    echo "Les conteneurs Docker Compose en mode production ont été lancés avec succès."
+elif [ "$action" == "down" ]; then
+    # Arrêtez les conteneurs Docker Compose en mode production
+    docker-compose -f docker-compose.yml down
+    echo "Les conteneurs Docker Compose en mode production ont été arrêtés avec succès."
 fi
-
 # Facultatif : Vous pouvez ajouter d'autres commandes ou personnalisation ici si nécessaire.
 
 exit 0
