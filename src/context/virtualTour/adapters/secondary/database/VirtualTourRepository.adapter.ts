@@ -1,23 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import {
+	GeneratedId,
 	VirtualTourAutomaticDto,
 	VirtualTourDto,
 	VirtualTourRepositoryPort,
 } from '@virtualTour/ports/VirtualTourRepository.port';
 import { PrismaService } from 'prisma/prisma.service';
 import { customAlphabet } from 'nanoid';
+import { createHash } from 'crypto';
 
 @Injectable()
 export class VirtualTourRepositoryAdapter implements VirtualTourRepositoryPort {
 	constructor(private readonly prisma: PrismaService) {}
 
 	/* TODO : Ajouter un hash (code chiffrer) pour valider l'id recu et éviter qu'un client crée son propre id dans le header */
-	generateId(): string {
+	generateId(): GeneratedId {
 		const nanoid = customAlphabet(
 			'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
 		);
-		return nanoid(12);
+		const key = nanoid(12);
+		const keySalted = key + process.env.VIRTUAL_ID_SALT;
+		const checksum = createHash('md5').update(keySalted).digest('hex');
+		return {
+			key,
+			checksum: checksum,
+		};
 	}
 
 	async save(data: VirtualTourDto[]): Promise<number> {
@@ -33,18 +41,18 @@ export class VirtualTourRepositoryAdapter implements VirtualTourRepositoryPort {
 		return virtualTourPosition.count;
 	}
 
-	async fetch(virtualTourId: string): Promise<VirtualTourAutomaticDto[]> {
+	async fetch(virtualTourRoomId: string): Promise<VirtualTourAutomaticDto[]> {
 		const virtualTourPosition: VirtualTourDto[] =
 			await this.prisma.virtualTourPosition.findMany({
 				where: {
-					virtualTourId,
+					virtualTourRoomId,
 				},
 				orderBy: {
 					time: 'asc',
 				},
 			});
 
-		console.log('fetch virtualTour ', virtualTourId);
+		console.log('fetch virtualTour ', virtualTourRoomId);
 		if (!virtualTourPosition.length) {
 			console.log('no virtualTour found');
 			return [];

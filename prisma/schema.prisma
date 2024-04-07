@@ -10,12 +10,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model VirtualTour {
+  id            String @id @default(uuid())
+  virtualTourId String
+}
+
+model VirtualTourRoom {
+  id        String                   @id @default(uuid())
+  name      String
+  positions VirtualTourPosition[]
+  pictures  VirtualTourRoomPicture[]
+}
+
+model VirtualTourRoomPicture {
+  id     String          @id @default(uuid())
+  url    String
+  room   VirtualTourRoom @relation(fields: [roomId], references: [id])
+  roomId String
+}
 
 model VirtualTourPosition {
-  id           String       @id @default(uuid())
-  time         DateTime
-  virtualTourId String
-  yaw         Float
-  pitch         Float
-  zoom         Float
+  id                String           @id @default(uuid())
+  time              DateTime
+  VirtualTourRoom   VirtualTourRoom? @relation(fields: [virtualTourRoomId], references: [id])
+  virtualTourRoomId String
+  yaw               Float
+  pitch             Float
+  zoom              Float
 }

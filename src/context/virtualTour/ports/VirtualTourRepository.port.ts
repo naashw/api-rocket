@@ -2,7 +2,7 @@ export const VirtualTourRepositoryKey = 'VirtualTourRepositoryPort';
 
 export interface VirtualTourDto {
 	id: string;
-	virtualTourId: string;
+	virtualTourRoomId: string;
 	time: Date;
 	yaw: number;
 	pitch: number;
@@ -21,5 +21,10 @@ export interface VirtualTourAutomaticDto {
 export interface VirtualTourRepositoryPort {
 	save(data: VirtualTourDto[]): Promise<number>;
 	fetch(virtualTourId: string): Promise<VirtualTourAutomaticDto[]>;
-	generateId(): string;
+	generateId(): GeneratedId;
+}
+
+export interface GeneratedId {
+	key: string;
+	checksum: string;
 }

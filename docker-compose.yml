@@ -2,6 +2,7 @@ version: '3.9'
 
 volumes:
   postgres-data:
+  static-files:
 
 networks:
   rocket-net:
@@ -30,11 +31,14 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       PRISMA_DATABASE_URL: ${PRISMA_DATABASE_URL}
+      VIRTUAL_ID_SALT: ${VIRTUAL_ID_SALT}
     ports:
       - '3001:3001'
     depends_on:
       - api-db
     volumes:
       - ./src:/workspace/src
+      - static-files:/workspace/static/images
     networks:
       - rocket-net
+    tty: true

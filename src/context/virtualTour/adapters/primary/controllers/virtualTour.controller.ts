@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import {
+	GeneratedId,
 	VirtualTourAutomaticDto,
 	VirtualTourDto,
 	VirtualTourRepositoryKey,
@@ -32,7 +33,7 @@ export class VirtualTourController {
 	}
 
 	@Get('id')
-	generateId(): string {
+	generateId(): GeneratedId {
 		return this.virtualTour.generateId();
 	}
 }
