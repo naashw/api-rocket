@@ -31,7 +31,11 @@ export class PicturesController {
 	): Promise<string> {
 		try {
 			console.log(files, headers);
-			const virtualTourId = headers['virtual-tour-id'];
+
+			const virtualTourId = {
+				key: headers['virtual-tour-id'],
+				checksum: headers['virtual-tour-id-checksum'],
+			};
 			return await this.picturesRepository.uploadFiles(
 				files,
 				virtualTourId,

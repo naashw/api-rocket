@@ -38,6 +38,7 @@ services:
       - api-db
     volumes:
       - ./src:/workspace/src
+      - ./prisma:/workspace/prisma
       - static-files:/workspace/static/images
     networks:
       - rocket-net

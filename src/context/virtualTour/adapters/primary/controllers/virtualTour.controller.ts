@@ -1,3 +1,4 @@
+import { GenerateId } from '@common/idGenerator.service';
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import {
 	GeneratedId,
@@ -34,6 +35,6 @@ export class VirtualTourController {
 
 	@Get('id')
 	generateId(): GeneratedId {
-		return this.virtualTour.generateId();
+		return GenerateId();
 	}
 }

@@ -21,7 +21,6 @@ export interface VirtualTourAutomaticDto {
 export interface VirtualTourRepositoryPort {
 	save(data: VirtualTourDto[]): Promise<number>;
 	fetch(virtualTourId: string): Promise<VirtualTourAutomaticDto[]>;
-	generateId(): GeneratedId;
 }
 
 export interface GeneratedId {
