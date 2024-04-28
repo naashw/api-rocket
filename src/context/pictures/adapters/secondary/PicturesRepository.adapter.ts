@@ -13,6 +13,7 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 	): Promise<string> {
 		console.log(data);
 		console.log(virtualTourId);
+		console.log('is validated ? =', ValidateId(virtualTourId));
 
 		return `is validated ? ${ValidateId(virtualTourId)}`;
 	}
