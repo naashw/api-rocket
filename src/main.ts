@@ -9,6 +9,6 @@ async function Bootstrap() {
 	app.useStaticAssets(process.env.STATIC_IMAGES_PATH, {
 		prefix: '/static/',
 	});
-	await app.listen(3001);
+	await app.listen(process.env.API_PORT || 3001);
 }
 Bootstrap();

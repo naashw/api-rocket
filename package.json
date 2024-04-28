@@ -10,6 +10,7 @@
 	},
 	"scripts": {
 		"build": "nest build",
+		"pack:build:nocache": "npm run pack:build -- --clear-cache",
 		"pack:build": "pack build api-rocket --path ./",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"dev": "npm run container:restart",
@@ -29,7 +30,8 @@
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
 		"prisma:migrate": "prisma migrate dev",
-		"prisma:format": "prisma format"
+		"prisma:format": "prisma format",
+		"prisma:migrate:reset:database": "prisma migrate reset"
 	},
 	"dependencies": {
 		"@nestjs/common": "^10.3.0",

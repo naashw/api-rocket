@@ -4,7 +4,7 @@ import { GenerateNanoid } from '@common/idGenerator.service';
 
 @Injectable()
 export class StorageService {
-	private readonly uploadPath = '/home/node/app/static/images/';
+	private readonly uploadPath = process.env.STATIC_IMAGES_PATH;
 	public getStorage(): StorageEngine {
 		return multer.diskStorage({
 			destination: (req, file, cb) => {

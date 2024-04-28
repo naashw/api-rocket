@@ -42,7 +42,7 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 
 			await this.prisma.virtualTourRoomPicture.create({
 				data: {
-					url: destination,
+					filename,
 					virtualTourRoomId: virtualTourRoom.id,
 				},
 			});

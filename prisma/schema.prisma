@@ -27,7 +27,7 @@ model virtualTourRoom {
 
 model virtualTourRoomPicture {
   id                String          @id @default(uuid())
-  url               String
+  filename          String
   virtualTourRoom   virtualTourRoom @relation(fields: [virtualTourRoomId], references: [id])
   virtualTourRoomId String
 }
