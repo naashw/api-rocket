@@ -32,6 +32,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       PRISMA_DATABASE_URL: ${PRISMA_DATABASE_URL}
       VIRTUAL_ID_SALT: ${VIRTUAL_ID_SALT}
+      STATIC_IMAGES_PATH: ${STATIC_IMAGES_PATH}
     ports:
       - '3001:3001'
     depends_on:
@@ -39,7 +40,7 @@ services:
     volumes:
       - ./src:/workspace/src
       - ./prisma:/workspace/prisma
-      - static-images:/home/node/app/static/images
+      - static-images:${STATIC_IMAGES_PATH}
     networks:
       - rocket-net
     tty: true
