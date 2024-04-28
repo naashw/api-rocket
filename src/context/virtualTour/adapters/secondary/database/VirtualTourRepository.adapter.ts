@@ -12,7 +12,7 @@ export class VirtualTourRepositoryAdapter implements VirtualTourRepositoryPort {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async save(data: VirtualTourDto[]): Promise<number> {
-		const virtualTourPositionData: Prisma.VirtualTourPositionCreateManyInput[] =
+		const virtualTourPositionData: Prisma.virtualTourPositionCreateManyInput[] =
 			data;
 
 		const virtualTourPosition: Prisma.BatchPayload =

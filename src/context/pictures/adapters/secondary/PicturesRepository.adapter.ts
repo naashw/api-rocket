@@ -12,13 +12,44 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 		private readonly storageService: StorageService,
 	) {}
 
-	async uploadFiles(
-		data: Express.Multer.File[],
-		virtualTourId: { key: string; checksum: string },
+	async savePictures(
+		files: Express.Multer.File[],
+		virtualTourIdParams: { key: string; checksum: string },
 	): Promise<string[]> {
-		console.log(data);
-		console.log(virtualTourId);
-		console.log('is validated ? =', ValidateId(virtualTourId));
+		const isValid = ValidateId(virtualTourIdParams);
+		if (!isValid) {
+			throw new Error('Invalid virtual tour id');
+		}
+		const { key } = virtualTourIdParams;
+		const virtualTour = await this.prisma.virtualTour.upsert({
+			where: {
+				virtualTourId: key,
+			},
+			update: {},
+			create: {
+				virtualTourId: key,
+			},
+		});
+
+		for (const file of files) {
+			const { originalname, filename, size, destination } = file;
+			const virtualTourRoom = await this.prisma.virtualTourRoom.create({
+				data: {
+					name: filename, // Add the required 'name' property
+					virtualTourId: virtualTour.id,
+				},
+			});
+
+			await this.prisma.virtualTourRoomPicture.create({
+				data: {
+					url: destination,
+					virtualTourRoomId: virtualTourRoom.id,
+				},
+			});
+		}
+		console.log(files);
+		console.log(virtualTourIdParams);
+		console.log('is validated ? =', ValidateId(virtualTourIdParams));
 
 		return [];
 		// const filesUploaded = this.uploadFilesService.uploadFiles(data);

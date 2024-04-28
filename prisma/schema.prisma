@@ -10,29 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model VirtualTour {
-  id            String @id @default(uuid())
+model virtualTour {
+  id              String            @id @default(uuid())
+  virtualTourId   String            @unique
+  virtualTourRoom virtualTourRoom[]
+}
+
+model virtualTourRoom {
+  id            String                   @id @default(uuid())
+  virtualTour   virtualTour              @relation(fields: [virtualTourId], references: [id])
   virtualTourId String
+  name          String
+  positions     virtualTourPosition[]
+  pictures      virtualTourRoomPicture[]
 }
 
-model VirtualTourRoom {
-  id        String                   @id @default(uuid())
-  name      String
-  positions VirtualTourPosition[]
-  pictures  VirtualTourRoomPicture[]
+model virtualTourRoomPicture {
+  id                String          @id @default(uuid())
+  url               String
+  virtualTourRoom   virtualTourRoom @relation(fields: [virtualTourRoomId], references: [id])
+  virtualTourRoomId String
 }
 
-model VirtualTourRoomPicture {
-  id     String          @id @default(uuid())
-  url    String
-  room   VirtualTourRoom @relation(fields: [roomId], references: [id])
-  roomId String
-}
-
-model VirtualTourPosition {
-  id                String           @id @default(uuid())
+model virtualTourPosition {
+  id                String          @id @default(uuid())
   time              DateTime
-  VirtualTourRoom   VirtualTourRoom? @relation(fields: [virtualTourRoomId], references: [id])
+  virtualTourRoom   virtualTourRoom @relation(fields: [virtualTourRoomId], references: [id])
   virtualTourRoomId String
   yaw               Float
   pitch             Float

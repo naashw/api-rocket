@@ -36,7 +36,14 @@ export class PicturesController {
 		@Headers() headers: ParameterDecorator,
 	): Promise<{ originalName: string; filename: string }[]> {
 		try {
+			const virtualTourParams = {
+				key: headers['virtual-tour-id'],
+				checksum: headers['virtual-tour-id-checksum'],
+			};
+
+			this.picturesRepository.savePictures(files, virtualTourParams);
 			const response = [];
+
 			files.forEach((file) => {
 				const fileResponse = {
 					originalName: file.originalname,
@@ -44,11 +51,8 @@ export class PicturesController {
 				};
 				response.push(fileResponse);
 			});
-			const virtualTourId = {
-				key: headers['virtual-tour-id'],
-				checksum: headers['virtual-tour-id-checksum'],
-			};
-			console.log(virtualTourId);
+
+			console.log(virtualTourParams);
 			console.log(response);
 			return response;
 		} catch (e) {
