@@ -15,7 +15,9 @@ import {
 	PicturesRepositoryPort,
 } from '../../ports/pictures.port';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { StorageService } from '@services/storage.service';
 
+const storage = new StorageService();
 @Controller('pictures')
 export class PicturesController {
 	constructor(
@@ -24,22 +26,31 @@ export class PicturesController {
 	) {}
 
 	@Post()
-	@UseInterceptors(FilesInterceptor('files'))
-	async save(
+	@UseInterceptors(
+		FilesInterceptor('files', 50, {
+			storage: storage.getStorage(),
+		}),
+	)
+	async uploadFiles(
 		@UploadedFiles() files: Express.Multer.File[],
-		@Headers() headers: any,
-	): Promise<string> {
+		@Headers() headers: ParameterDecorator,
+	): Promise<{ originalName: string; filename: string }[]> {
 		try {
-			console.log(files, headers);
-
+			const response = [];
+			files.forEach((file) => {
+				const fileResponse = {
+					originalName: file.originalname,
+					filename: file.filename,
+				};
+				response.push(fileResponse);
+			});
 			const virtualTourId = {
 				key: headers['virtual-tour-id'],
 				checksum: headers['virtual-tour-id-checksum'],
 			};
-			return await this.picturesRepository.uploadFiles(
-				files,
-				virtualTourId,
-			);
+			console.log(virtualTourId);
+			console.log(response);
+			return response;
 		} catch (e) {
 			console.log(e);
 			throw error(e);

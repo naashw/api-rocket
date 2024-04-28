@@ -6,6 +6,6 @@ export interface PicturesRepositoryPort {
 	uploadFiles(
 		files: PicturesDto,
 		virtualTourId: { key: string; checksum: string },
-	): Promise<string>;
+	): Promise<string[]>;
 	fetch(virtualTourId: string): Promise<PicturesDto>;
 }

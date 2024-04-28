@@ -2,7 +2,7 @@ version: '3.9'
 
 volumes:
   postgres-data:
-  static-files:
+  static-images:
 
 networks:
   rocket-net:
@@ -39,7 +39,7 @@ services:
     volumes:
       - ./src:/workspace/src
       - ./prisma:/workspace/prisma
-      - static-files:/workspace/static/images
+      - static-images:/home/node/app/static/images
     networks:
       - rocket-net
     tty: true
