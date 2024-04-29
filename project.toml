@@ -3,7 +3,7 @@ schema-version = "0.2"
 name = "unnomrandom"
 
 [io.buildpacks]
-builder = "paketobuildpacks/builder:base"
+builder = "paketobuildpacks/builder-jammy-full"
 exclude = [
     "README.md",
 ]
