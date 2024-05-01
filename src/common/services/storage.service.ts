@@ -18,4 +18,8 @@ export class StorageService {
 			},
 		});
 	}
+
+	public getFilePath(filename: string): string {
+		return `${process.env.STATIC_IMAGES_PUBLIC_PREFIX}/${filename}`;
+	}
 }

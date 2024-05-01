@@ -1,26 +1,23 @@
+import { VirtualTourRoomPositionDto } from './VirtualTourRoomPositionRepository.port';
+
 export const VirtualTourRepositoryKey = 'VirtualTourRepositoryPort';
 
 export interface VirtualTourDto {
 	id: string;
-	virtualTourRoomId: string;
-	time: Date;
-	yaw: number;
-	pitch: number;
-	zoom: number;
+	virtualTourId: string;
+	virtualTourRoom: VirtualTourRoom[];
 }
 
-export interface VirtualTourAutomaticDto {
-	time: number;
-	position: {
-		yaw: number;
-		pitch: number;
-		zoom: number;
-	};
+interface VirtualTourRoom {
+	id: string;
+	virtualTourId: string;
+	name: string;
+	positions: VirtualTourRoomPositionDto[];
 }
 
 export interface VirtualTourRepositoryPort {
-	save(data: VirtualTourDto[]): Promise<number>;
-	fetch(virtualTourId: string): Promise<VirtualTourAutomaticDto[]>;
+	save(data: VirtualTourRoomPositionDto[]): Promise<number>;
+	fetch(virtualTourId: string): Promise<VirtualTourDto>;
 }
 
 export interface GeneratedId {

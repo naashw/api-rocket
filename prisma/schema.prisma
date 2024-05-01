@@ -12,6 +12,9 @@ datasource db {
 
 model virtualTour {
   id              String            @id @default(uuid())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now()) @updatedAt
+  deletedAt       DateTime?
   virtualTourId   String            @unique
   virtualTourRoom virtualTourRoom[]
 }
@@ -28,6 +31,7 @@ model virtualTourRoom {
 model virtualTourRoomPicture {
   id                String          @id @default(uuid())
   filename          String
+  filePath          String
   virtualTourRoom   virtualTourRoom @relation(fields: [virtualTourRoomId], references: [id])
   virtualTourRoomId String
 }

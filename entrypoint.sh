@@ -3,9 +3,9 @@
 # Arrête le script si une commande échoue
 set -e
 
-# Exécute la migration Prisma
-echo "Démarrage de la migration Prisma..."
-npx prisma migrate deploy
+# # Exécute la migration Prisma
+# echo "Démarrage de la migration Prisma..."
+# npx prisma migrate deploy
 
 # Parcourir tous les arguments passés au script
 for arg in "$@"

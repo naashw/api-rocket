@@ -6,21 +6,21 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"engines": {
-		"node": "19.9"
+		"node": "20"
 	},
 	"scripts": {
-		"build": "nest build",
+		"build": "nest build && chmod -R 777 /workspace/dist",
 		"pack:build:nocache": "npm run pack:build -- --clear-cache",
 		"pack:build": "pack build api-rocket --path ./",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"dev": "npm run container:restart",
+		"dev:reset": "npm run pack:build:nocache && npm run container:restart",
 		"dev:debug": "nest start --debug --watch",
-		"container:create": "npm run pack:build && npm run container:restart",
 		"container:up": "bash dc.sh up",
 		"container:down": "bash dc.sh down",
 		"container:restart": "npm run container:down && npm run container:up",
 		"start": "./entrypoint.sh",
-		"start:dev": "nest start --debug --watch ",
+		"start:dev": "nest start --debug --watch",
 		"start:prod": "nest start",
 		"start:migrate:prod": "prisma migrate deploy && npm run start:prod",
 		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

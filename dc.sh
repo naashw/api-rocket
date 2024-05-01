@@ -30,6 +30,7 @@ cd .
 
 if [ "$action" == "up" ]; then
     # Exécutez Docker Compose avec docker-compose.production.yml pour lancer les conteneurs en mode production
+    docker-compose build --no-cache
     docker-compose -f docker-compose.yml up --build --force-recreate
     echo "Les conteneurs Docker Compose en mode production ont été lancés avec succès."
 elif [ "$action" == "down" ]; then

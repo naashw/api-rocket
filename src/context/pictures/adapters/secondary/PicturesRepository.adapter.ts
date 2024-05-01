@@ -32,7 +32,9 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 		});
 
 		for (const file of files) {
-			const { originalname, filename, size, destination } = file;
+			const { filename } = file;
+			const filePath =
+				this.storageService.getFilePath(filename) || 'null';
 			const virtualTourRoom = await this.prisma.virtualTourRoom.create({
 				data: {
 					name: filename, // Add the required 'name' property
@@ -43,14 +45,11 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 			await this.prisma.virtualTourRoomPicture.create({
 				data: {
 					filename,
+					filePath,
 					virtualTourRoomId: virtualTourRoom.id,
 				},
 			});
 		}
-		console.log(files);
-		console.log(virtualTourIdParams);
-		console.log('is validated ? =', ValidateId(virtualTourIdParams));
-
 		return [];
 		// const filesUploaded = this.uploadFilesService.uploadFiles(data);
 	}

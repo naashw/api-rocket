@@ -2,11 +2,11 @@ import { GenerateId } from '@common/idGenerator.service';
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import {
 	GeneratedId,
-	VirtualTourAutomaticDto,
-	VirtualTourDto,
 	VirtualTourRepositoryKey,
 	VirtualTourRepositoryPort,
+	VirtualTourDto,
 } from '@virtualTour/ports/VirtualTourRepository.port';
+import { VirtualTourRoomPositionDto } from '@virtualTour/ports/VirtualTourRoomPositionRepository.port';
 import { error } from 'console';
 
 @Controller('virtualTour')
@@ -17,7 +17,7 @@ export class VirtualTourController {
 	) {}
 
 	@Post()
-	save(@Body() data: VirtualTourDto[]): void {
+	save(@Body() data: VirtualTourRoomPositionDto[]): void {
 		try {
 			this.virtualTour.save(data);
 		} catch (e) {
@@ -26,15 +26,14 @@ export class VirtualTourController {
 		}
 	}
 
-	@Get('fetch/:id')
-	async get(
-		@Param('id') virtualTourId: string,
-	): Promise<VirtualTourAutomaticDto[]> {
+	@Get('/id/:id')
+	async get(@Param('id') virtualTourId: string): Promise<VirtualTourDto> {
 		return await this.virtualTour.fetch(virtualTourId);
 	}
 
-	@Get('id')
+	@Get('/id')
 	generateId(): GeneratedId {
+		console.log('generateid');
 		return GenerateId();
 	}
 }
