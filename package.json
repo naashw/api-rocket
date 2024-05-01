@@ -9,7 +9,7 @@
 		"node": "20"
 	},
 	"scripts": {
-		"build": "nest build && chmod -R 777 /workspace/dist",
+		"build": "chmod +x ./build.sh && ./build.sh",
 		"pack:build:nocache": "npm run pack:build -- --clear-cache",
 		"pack:build": "pack build api-rocket --path ./",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

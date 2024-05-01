@@ -8,13 +8,13 @@ exclude = [
     "README.md",
 ]
 
-# [[io.buildpacks.build.env]]
-# name = "BP_NODE_RUN_SCRIPTS"
-# value = "build"
+[[io.buildpacks.build.env]]
+name = "BP_NODE_RUN_SCRIPTS"
+value = "build"
 
-# [[io.buildpacks.build.env]]
-# name = "BP_LAUNCHPOINT"
-# value = "./entrypoint.sh"
+[[io.buildpacks.build.env]]
+name = "BP_LAUNCHPOINT"
+value = "./entrypoint.sh"
 
 [[io.buildpacks.build.env]]
 name = "BP_LOG_LEVEL"
