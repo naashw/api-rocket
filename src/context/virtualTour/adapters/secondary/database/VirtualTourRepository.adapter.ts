@@ -23,6 +23,7 @@ export class VirtualTourRepositoryAdapter implements VirtualTourRepositoryPort {
 					virtualTourRoom: {
 						include: {
 							positions: {},
+							pictures: {},
 						},
 					},
 				},

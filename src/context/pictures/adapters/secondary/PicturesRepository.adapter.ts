@@ -33,8 +33,10 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 
 		for (const file of files) {
 			const { filename } = file;
+			console.log('filename', filename);
 			const filePath =
 				this.storageService.getFilePath(filename) || 'null';
+				console.log('filePath', filePath);
 			const virtualTourRoom = await this.prisma.virtualTourRoom.create({
 				data: {
 					name: filename, // Add the required 'name' property

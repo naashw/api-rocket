@@ -7,7 +7,10 @@ async function Bootstrap() {
 	app.enableCors({ origin: '*' });
 	console.log(process.env.STATIC_IMAGES_PATH);
 	app.useStaticAssets(process.env.STATIC_IMAGES_PATH, {
-		prefix: process.env.STATIC_IMAGES_PATH,
+		prefix: process.env.STATIC_IMAGES_PUBLIC_PREFIX,
+		setHeaders(res, path, stat) {
+			res.set('Access-Control-Allow-Origin', '*');
+		},
 	});
 	await app.listen(process.env.API_PORT || 3001);
 }
