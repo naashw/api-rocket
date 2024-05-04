@@ -45,11 +45,10 @@ export class PicturesController {
 			const response = [];
 
 			files.forEach((file) => {
-				const fileResponse = {
+				response.push({
 					originalName: file.originalname,
 					filename: file.filename,
-				};
-				response.push(fileResponse);
+				});
 			});
 
 			console.log(virtualTourParams);
