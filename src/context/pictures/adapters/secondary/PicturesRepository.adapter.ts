@@ -18,15 +18,18 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 	): Promise<string[]> {
 		const isValid = ValidateId(virtualTourIdParams);
 		if (!isValid) {
+			console.log(virtualTourIdParams);
 			throw new Error('Invalid virtual tour id');
 		}
 		const { key } = virtualTourIdParams;
 		const virtualTour = await this.prisma.virtualTour.upsert({
-			where: {
+			create: {
 				virtualTourId: key,
 			},
-			update: {},
-			create: {
+			update: {
+				updatedAt: new Date(),
+			},
+			where: {
 				virtualTourId: key,
 			},
 		});

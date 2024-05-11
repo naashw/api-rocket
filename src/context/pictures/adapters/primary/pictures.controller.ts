@@ -8,7 +8,6 @@ import {
 	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
-import { error } from 'console';
 import {
 	PicturesDto,
 	PicturesRepositoryKey,
@@ -55,8 +54,12 @@ export class PicturesController {
 			console.log(response);
 			return response;
 		} catch (e) {
+			const virtualTourParams = {
+				key: headers['virtual-tour-id'],
+				checksum: headers['virtual-tour-id-checksum'],
+			};
+			console.log(virtualTourParams);
 			console.log(e);
-			throw error(e);
 		}
 	}
 

@@ -13,13 +13,13 @@ export class VirtualTourRoomPositionRepositoryAdapter
 {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async save(data: VirtualTourRoomPositionDto[]): Promise<number> {
-		const virtualTourPositionData: Prisma.virtualTourPositionCreateManyInput[] =
-			data;
+	async save(datas: VirtualTourRoomPositionDto[]): Promise<number> {
+		const virtualTourPositionDataReceived: Prisma.virtualTourPositionCreateManyInput[] =
+			datas;
 
 		const virtualTourPosition: Prisma.BatchPayload =
 			await this.prisma.virtualTourPosition.createMany({
-				data: virtualTourPositionData,
+				data: virtualTourPositionDataReceived,
 				skipDuplicates: true,
 			});
 

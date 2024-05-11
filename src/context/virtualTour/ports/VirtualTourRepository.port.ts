@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { VirtualTourRoomPositionDto } from './VirtualTourRoomPositionRepository.port';
 
 export const VirtualTourRepositoryKey = 'VirtualTourRepositoryPort';
