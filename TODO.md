@@ -6,3 +6,7 @@
 ## Back
 
 crée la route pour save les position envoyé par le front
+
+## Front
+
+- Rajouter un identifiant de viewer pour trier les positions par utilisateurs ( uuid à envoyer coté front )
