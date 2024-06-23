@@ -1,7 +1,5 @@
-import { GenerateId } from '@common/idGenerator.service';
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import {
-	GeneratedId,
 	VirtualTourRepositoryKey,
 	VirtualTourRepositoryPort,
 	VirtualTourDto,
@@ -26,14 +24,8 @@ export class VirtualTourController {
 		}
 	}
 
-	@Get('/id/:id')
+	@Get('/:id')
 	async get(@Param('id') virtualTourId: string): Promise<VirtualTourDto> {
 		return await this.virtualTour.fetch(virtualTourId);
-	}
-
-	@Get('/id')
-	generateId(): GeneratedId {
-		console.log('generateid');
-		return GenerateId();
 	}
 }

@@ -47,13 +47,16 @@ export class PicturesRepositoryAdapter implements PicturesRepositoryPort {
 				},
 			});
 
-			await this.prisma.virtualTourRoomPicture.create({
+			console.dir(virtualTourRoom, { depth: null });
+
+			const toto = await this.prisma.virtualTourRoomPicture.create({
 				data: {
 					filename,
 					filePath,
 					virtualTourRoomId: virtualTourRoom.id,
 				},
 			});
+			console.dir(toto, { depth: null });
 		}
 		return [];
 		// const filesUploaded = this.uploadFilesService.uploadFiles(data);
