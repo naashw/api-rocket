@@ -7,6 +7,7 @@ import { PicturesModule } from './context/pictures/pictures.module';
 import { ConfigModule } from '@nestjs/config';
 import securityConfig from './config/security.config';
 import { GeneratorModule } from './context/Generator/generator.module';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
 	imports: [
@@ -17,6 +18,12 @@ import { GeneratorModule } from './context/Generator/generator.module';
 		PicturesModule,
 		ConfigModule.forRoot({
 			load: [securityConfig],
+		}),
+		BullModule.forRoot({
+			connection: {
+				host: process.env.REDIS_HOST,
+				port: parseInt(process.env.REDIS_PORT),
+			},
 		}),
 	],
 	providers: [],

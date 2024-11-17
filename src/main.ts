@@ -8,7 +8,7 @@ async function Bootstrap() {
 	console.log(process.env.STATIC_IMAGES_PATH);
 	app.useStaticAssets(process.env.STATIC_IMAGES_PATH, {
 		prefix: process.env.STATIC_IMAGES_PUBLIC_PREFIX,
-		setHeaders(res, path, stat) {
+		setHeaders(res) {
 			res.set('Access-Control-Allow-Origin', '*');
 		},
 	});
